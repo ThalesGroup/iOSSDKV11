@@ -40,7 +40,6 @@ import AVFoundation
     public override func viewDidLoad() {
         super.viewDidLoad()
         lastDeviceOrientation = UIDevice.current.orientation
-        handleNavigationBarVisibility()
         createCameraLayers()
     }
 
@@ -59,7 +58,6 @@ import AVFoundation
         super.viewWillDisappear(animated)
         stopCamera()
         NotificationCenter.default.removeObserver(self)
-        navigationController?.setNavigationBarHidden(isNavigationHidden, animated: false)
     }
 
     override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -70,11 +68,6 @@ import AVFoundation
             let newFrame = CGRect(origin: self.view.frame.origin, size: size)
             self.rotateCameraPreview(to: self.view.window?.interfaceOrientation, frame: newFrame)
         })
-    }
-
-    private func handleNavigationBarVisibility() {
-        isNavigationHidden = navigationController?.isNavigationBarHidden ?? false
-        navigationController?.setNavigationBarHidden(options.hideNavigationBar, animated: false)
     }
 
     private func createCameraLayers() {
@@ -213,10 +206,6 @@ import AVFoundation
 
         captureSession.start {
             self.rotateCameraPreview(to: self.view.window?.interfaceOrientation, frame: self.view.frame)
-        }
-
-        if options.showBackButton {
-            addNavigationBackButton()
         }
     }
 

@@ -240,7 +240,6 @@ extension DocumentCameraViewController: DocumentCaptureSessionDelegate {
         let data = CameraMetaData().setCaptureType(captureType: docOptions.autoCapture ? "AUTO" : "TAP")
         let result = ImagePreparation.createCameraImage(image: rotateImage(image: image),
                                                         data: data)
-        navigationController?.popViewController(animated: true)
         delegate?.onCaptured(image: result, barcodeString: barcodeString)
     }
 

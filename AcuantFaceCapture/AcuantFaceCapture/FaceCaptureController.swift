@@ -121,7 +121,6 @@ public class FaceCaptureController: UIViewController {
 
     func startCameraView() {
         guard let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front) else {
-            navigationController?.popViewController(animated: true)
             return
         }
 
@@ -242,7 +241,6 @@ public class FaceCaptureController: UIViewController {
             self.addMessage(messageKey: "acuant_face_camera_capturing_\(time)", color: self.options!.fontColorGood)
         } else if !self.isCaptured {
             self.isCaptured = true
-            self.navigationController?.popViewController(animated: true)
             if let resized = ImagePreparation.resize(image: image,
                                                      targetWidth: getTargetWidth(width: Int(image.size.width),
                                                                                  height: Int(image.size.height))),
@@ -362,7 +360,6 @@ public class FaceCaptureController: UIViewController {
 
     @objc internal func backTapped(_ sender: Any) {
         callback?(nil)
-        self.navigationController?.popViewController(animated: true)
     }
 
     public func setLookFromState(state: AcuantFaceState) {
