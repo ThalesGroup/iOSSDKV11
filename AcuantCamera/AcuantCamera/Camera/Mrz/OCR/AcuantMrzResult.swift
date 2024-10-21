@@ -6,7 +6,7 @@
 //  Copyright © 2019 Apple. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @objcMembers public class AcuantMrzResult: NSObject {
     public var surName: String = ""
