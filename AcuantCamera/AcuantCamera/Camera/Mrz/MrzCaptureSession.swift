@@ -22,7 +22,7 @@ import AcuantImagePreparation
     private var cropping = false
 
     public weak var delegate: MrzCaptureSessionDelegate?
-
+    
     public init(captureDevice: AVCaptureDevice) {
         let queue = DispatchQueue(label: "com.acuant.mrz-capture-session", qos: .userInteractive)
         super.init(captureDevice: captureDevice, sessionQueue: queue)
@@ -188,8 +188,14 @@ extension MrzCaptureSession: AVCaptureVideoDataOutputSampleBufferDelegate {
         var state = MrzCameraState.none
         var result: AcuantMrzResult?
 
-        if let croppedFrame = detectImage(image: frame),
-           let img = croppedFrame.image {
+        let timeToWait: Int = 3
+        // Compare time difference
+        if let currentStartDate = currentStartDate,
+           let seconds = Calendar.current.dateComponents([.second], from: currentStartDate, to: Date()).second,
+           seconds < timeToWait {
+            state = .positioning
+        } else if let croppedFrame = detectImage(image: frame),
+                  let img = croppedFrame.image {
             result = executeOCRAndParseMrzResult(image: img)
             state = getMrzState(points: croppedFrame.points, imgSize: img.size, frameSize: frame.size, mrzResult: result)
             scaledPoints = getScaledPoints(points: croppedFrame.points, frameSize: frame.size)

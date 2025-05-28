@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 @objc public enum MrzCameraState: Int {
-    case none, align, moveCloser, tooClose, reposition, good, captured
+    case none, align, moveCloser, tooClose, reposition, good, captured, positioning
 }
 
 @objcMembers public class MrzCameraOptions: CameraOptions {
@@ -33,6 +33,7 @@ import Foundation
                     case .good: return "Reading MRZ"
                     case .captured: return "Captured"
                     case .reposition: return "Reposition"
+                    case .positioning: return "Positioning camera"
                     @unknown default: return ""
                     }
                 },
@@ -44,6 +45,7 @@ import Foundation
                     case .good: return UIColor.yellow.cgColor
                     case .captured: return UIColor.green.cgColor
                     case .reposition: return UIColor.red.cgColor
+                    case .positioning: return UIColor.gray.cgColor
                     @unknown default: return UIColor.black.cgColor
                     }
                 },

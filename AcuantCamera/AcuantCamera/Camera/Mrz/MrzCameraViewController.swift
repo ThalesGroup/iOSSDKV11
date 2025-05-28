@@ -191,6 +191,8 @@ extension MrzCameraViewController: MrzCaptureSessionDelegate {
                     self.handleUi(color: color, message: message, points: points)
                 case .reposition:
                     self.handleUi(color: color, message: message, points: points, shouldShowOverlay: true)
+                case .positioning:
+                    self.handleUi(color: color, message: message, points: points, shouldShowOverlay: true)
                 case .good, .captured:
                     if self.mrzResult != nil {
                         self.isCaptured = true

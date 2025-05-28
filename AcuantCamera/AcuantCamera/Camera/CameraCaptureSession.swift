@@ -16,6 +16,8 @@ import AVFoundation
     private let context = CIContext()
     private let defaultVideoZoomFactor = 1.6
 
+    var currentStartDate: Date?
+
     init(captureDevice: AVCaptureDevice, sessionQueue: DispatchQueue) {
         self.captureDevice = captureDevice
         self.sessionQueue = sessionQueue
@@ -26,6 +28,7 @@ import AVFoundation
             self.beginConfiguration()
             self.onConfigurationBegan()
             self.commitConfiguration()
+            self.currentStartDate = Date()
             self.startRunning()
             self.applyZoom()
             DispatchQueue.main.async {
@@ -36,6 +39,7 @@ import AVFoundation
 
     public func stop() {
         sessionQueue.async {
+            self.currentStartDate = nil
             self.stopRunning()
         }
     }
