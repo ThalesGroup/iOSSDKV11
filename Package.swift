@@ -52,8 +52,7 @@ let package = Package(
         .target(
             name: "AcuantEchipReaderTargets",
             dependencies: [
-                .target(name: "AcuantEchipReader"),
-                .target(name: "OpenSSL")
+                .target(name: "AcuantEchipReader")
             ],
             path: "AcuantTargets/AcuantEchipReaderTargets"
         ),
@@ -89,10 +88,6 @@ let package = Package(
         ),
         /* END_ACUANT */
         /* START_INTERNAL_DEPENDENCIES */
-        .binaryTarget(
-            name: "OpenSSL",
-            path: "EmbeddedFrameworks/OpenSSL.xcframework"
-        ),
         .binaryTarget(
             name: "libtesseract",
             path: "EmbeddedFrameworks/libtesseract.xcframework"
